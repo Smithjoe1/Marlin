@@ -1,5 +1,31 @@
-A new beta version is avaiable.
-Look under the Marlin_v1 branch. We also made a tag that you can download.
+First download this entire repository from the bar on the right under "Download ZIP"
+
+You will also need to download the Arduino software to open your program and transfer any changes, you can download it from http://arduino.cc/ and get the one for your version. You will need to change the board and serial port from under the Tools menu, the board is an Arduino Mega 2560 or Arduino ADK.
+
+Open the file named Marlin in the arduino software for it to load. Everything you need to make changes to are on the 2nd tab, Configuration.h
+Everything under the Delta section is important. You can get an explination of everything to measure here http://www.buildlog.net/wiki/doku.php?id=qd:quantum_delta_printer (I will be posting these for my printer as I get accurate measurements)
+//Everything with a double slash before the line is a comment and isn't part of the code, it's to help you understand what each of the settings are, this also works for the // after a line of code, say //mm to say the unit is in mm. 
+The other important settings are below, use Ctrl+F to find them in the code to change it for your printer.
+#define MANUAL_Z_HOME_POS 250 // For delta: Distance between nozzle and print surface after homing. (This will match the Printable Height setting below, this is important or your head might crash into the bed as it only knows where it is because you told it where it was relative to the top switches)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 80, 262}  //This is the section I need to get from Kevins working printer or someone who has the correct numbers already.
+
+
+Finally you will need Repetier Host or another 3d printer software that can send Gcode over serial (Pronterface is the other one I use)
+You can get Repetier Host from http://www.repetier.com/download/
+You will need to change a few settings in Repetier and Slic3r to match our printers as it's too hard to share the config files. On printer settings set extruders to 2.
+In Repetier, open Config>Printer Settings, Baudrate is 2500000, the port is the same as the port the Arduino software configures for you. 
+In the Printer Shape tab, set the printer type to Rostock, Home x: 0 Home y: 0 Home z: MAX. Printable radius 135 and Printable height 250 (You will need to measure your own to accuracy) 
+Back on the repetier main window, there are control tabs on the right, open the Slicer tab and select Configure.
+A new window will open up behind Repetier and will be slicer, it will have a configuration wizard open.
+Gcode flavour is Reprap
+bed size works at 200x200 for now
+Nozzle diameter is 0.35mm
+Filament diameter is 1.75mm
+Extrusion temp 220 or 200 depending if you have ABS or PLA (we can create seperate profiles for when you want to use both in dual extruders and set a profile to an extruder in Repetier host.)
+Bed temp is 110 or 60 depending on ABS or PLA again.
+
+
+So, once you've installed all the software, downaloded Marlin and opened it in your arduino software, uploaded it to the board, configured Repetier and Slic3r, you should be able to connect to the printer, download 3d files and simulate a print. If you have your extruder working and everything configured, a dry run looks like its working then put some plastic in, let it get hot and see if it 
 
 
 
